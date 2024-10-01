@@ -20,7 +20,7 @@ const CanvasRender = (): JSX.Element => {
         <Suspense fallback={null}>
           <Environment
             resolution={256}
-            background={false}
+            background={true}
             blur={10}
             files="piazza_san_marco_1k.hdr"
           ></Environment>
