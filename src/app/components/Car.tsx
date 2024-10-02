@@ -1,9 +1,23 @@
 import { useGLTF } from "@react-three/drei";
-import React from "react";
+import React, { useEffect } from "react";
+import { Color } from "three";
 
-const Car = () => {
+const Car = ({ ...props }) => {
   const { scene } = useGLTF("car.glb");
+  const carBody = scene.getObjectByName("DoorHandles");
+  const carFrontLogo = scene.getObjectByName("FrontLogo");
 
+  useEffect(() => {
+    const clr = new Color(props.carBodyColor);
+    (carBody as any).material.color = clr;
+    (carBody as any).material.needsUpdate = true;
+  }, [props.carBodyColor]);
+
+  useEffect(() => {
+    const clr = new Color(props.frontLogoColor);
+    (carFrontLogo as any).material.color = clr;
+    (carFrontLogo as any).material.needsUpdate = true;
+  }, [props.frontLogoColor]);
   return (
     <primitive
       scale={1.6}

@@ -1,11 +1,15 @@
 "use client";
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import Car from "./Car";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { Ground } from "./Ground";
+import { useControls, Leva } from "leva";
 
 const CanvasRender = (): JSX.Element => {
+  const { frontLogoColor } = useControls({ frontLogoColor: "#f00" });
+  const { carBodyColor } = useControls({ carBodyColor: "#f00" });
+
   return (
     <div className="w-full h-full">
       <Canvas camera={{ fov: 75, position: [0, 5, 5] }}>
@@ -24,10 +28,12 @@ const CanvasRender = (): JSX.Element => {
             blur={10}
             files="piazza_san_marco_1k.hdr"
           ></Environment>
-          <Car />
+          <Car frontLogoColor={frontLogoColor} carBodyColor={carBodyColor} />
           <Ground />
         </Suspense>
       </Canvas>
+
+      <Leva />
     </div>
   );
 };
